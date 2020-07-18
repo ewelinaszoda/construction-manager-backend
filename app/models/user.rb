@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :projects
+  has_many :projects, dependent: :destroy
   has_many :meetings, through: :projects
   has_many :notes, through: :projects
   has_many :subcontractors, through: :projects
@@ -11,3 +11,4 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates_format_of :email, with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
 end
+

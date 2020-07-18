@@ -15,9 +15,10 @@ Rails.application.routes.draw do
   # get 'projects/create'
   # get 'projects/show'
   # get 'users/create'
-
+root 'users#sign_in'
 resources :users, only: [:create]
   post "/sign-in", to: "users#sign_in"
+  get "/validate", to: "users#validate"
 
 resources :projects, only: [:index, :create, :show]
 resources :meetings, only: [:index, :create, :show]
