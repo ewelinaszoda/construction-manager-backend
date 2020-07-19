@@ -1,13 +1,30 @@
 class ApplicationController < ActionController::API
 
-  def generate_token(data)
-    JWT.encode(data, ENV["secret"])
+  def secret
+    ENV["secret"]
+  end
+
+  def encode_token(payload)
+     # should store secret in env variable
+    JWT.encode(payload, secret)
   end 
 
+  def auth_header
+    # { Authorization: 'Bearer <token>' }
+    request.headers['Authorization']
+  end
+
   def decode_token
-    token = request.headers["Authorization"]
-    data = JWT.decode(token, ENV["secret"]).first["id"]
-  end 
+    if auth_header
+      token = auth_header.split(' ')[1]
+      # header: { 'Authorization': 'Bearer <token>' }
+      begin
+        JWT.decode(token, secret, true, algorithm: 'HS256')
+      rescue JWT::DecodeError
+        nil
+      end
+    end
+  end
 
 end
 
