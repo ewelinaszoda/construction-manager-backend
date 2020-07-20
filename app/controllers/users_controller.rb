@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   def create
-    user = User.create(name: params[:name], surname: params[:surname], email: params[:email], password: params[:password], phone_number: params[:phone_number])
+    user = User.create(user_params)
     if user.valid?
       token = encode_token(user_id: user.id, email: user.email)
       render json: { user: UserSerializer.new(user), jwt: token }, status: :created
