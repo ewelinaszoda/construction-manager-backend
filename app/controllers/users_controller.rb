@@ -1,4 +1,14 @@
 class UsersController < ApplicationController
+
+  def create
+    user = User.create(name: params[:name], surname: params[:surname], email: params[:email], password: params[:password], phone_number: params[:phone_number])
+    if user.valid?
+      token = encode_token(user_id: user.id, email: user.email)
+      render json: { user: UserSerializer.new(user), jwt: token }, status: :created
+    else
+      render json: { error: "failed to create user" }, status: :not_acceptable
+    end
+  end
   
   def sign_in
     user = User.find_by(email: params[:email])
@@ -24,10 +34,10 @@ class UsersController < ApplicationController
   def home 
   end 
 
-  def sign_up
-  end 
+private
 
-  def create
-  end
-  
+def user_params
+  params.require(:user).permit(:name, :surname, :email, :password, :phone_number)
+end 
+
 end

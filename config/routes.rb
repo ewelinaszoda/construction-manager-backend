@@ -6,7 +6,7 @@ resources :users, only: [:create]
   post "/sign-in", to: "users#sign_in"
   get "/validate", to: "users#validate"
   get "/home", to: "users#home"
-  post "/sign-up", to: "users#sign_up"
+
 
 resources :projects, only: [:index, :create, :show]
 resources :meetings, only: [:index, :create, :show]
