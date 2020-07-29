@@ -7,6 +7,16 @@ class NotesController < ApplicationController
   end
 
   def create
+
+    note = Note.create(
+      project_id: params[:project_id],
+      title: params[:title],
+      description: params[:description],
+      )
+
+    #     byebug
+
+#  follow implementation from meeting controller
   end
 
   def show
@@ -20,7 +30,7 @@ class NotesController < ApplicationController
       params.require(:note).permit(
         :title, 
         :description,
-        # :project_id, 
+        :project_id, 
       )
   end
 

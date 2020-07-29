@@ -1,18 +1,18 @@
 class ProjectsController < ApplicationController
 
   def index
-    @projects = Project.all
-    render json: @projects, each_serializer: ProjectSerializer
+    projects = Project.all
+    render json: projects, each_serializer: ProjectSerializer
   end
 
 
   def show
-    @project = Project.find_by(project_params[:id])
-    render json: @project
+    project = Project.find_by(project_params[:id])
+    render json: project
   end
 
   def create
-    @project = Project.create(
+    project = Project.create(
     user_id: logged_in_user.id, 
     name: params[:name],
     address: params[:address],
@@ -24,18 +24,17 @@ class ProjectsController < ApplicationController
     quantity_surveyor: params[:quantity_surveyor],
     start_date: params[:start_date],
     end_date: params[:end_date])
-    if @project.valid?
-      render json: { project: ProjectSerializer.new(@project) }
+    if project.valid?
+      render json: { project: ProjectSerializer.new(project) }
     else
-      render json: { error: @project.errors.full_messages }
+      render json: { error: project.errors.full_messages }
     end
   end
 
-  def delete 
-    project = logged_in_user
+  def destroy
+    project = Project.find(params[:id])
     project.destroy
-
-    render json: project
+    render json: { item: "Project has been deleted!" }
   end 
 
   def my_projects

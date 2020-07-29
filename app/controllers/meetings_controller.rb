@@ -2,15 +2,38 @@ class MeetingsController < ApplicationController
 
   def index
     meetings= Meeting.all
-    render json: @meetings
+    render json: meetings
   end
 
   def create
+
+    meeting = Meeting.create(
+
+      project_id: params[:project_id],
+      title: params[:title],
+      date: params[:date], 
+      start_time: params[:start_time], 
+      end_time: params[:end_time], 
+      location: params[:location],
+      description: params[:description],
+      )
+
+    #     byebug
+
+    #     meeting_project = Meeting.find_by(meeting_params[:project_id])
+    #     meeting_project_user_id =  meeting_project.user_id
+
+    #   if  meeting_project_user_id == logged_in_user.id
+    #     render json: meeting
+    #   else 
+    #     render json: { error: meeting.errors.full_messages}
+    # end 
+
   end
 
   def show
-    @meeting = Meeting.find_by(meeting_params[:id])
-    render json: @meeting
+    meeting = Meeting.find_by(meeting_params[:id])
+    render json: meeting
   end
 
   def my_meetings
@@ -28,7 +51,7 @@ class MeetingsController < ApplicationController
         :end_time,
         :location,
         :description,
-        # :project_id, 
+        :project_id, 
       )
   end
 
