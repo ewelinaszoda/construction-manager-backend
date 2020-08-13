@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :projects, dependent: :destroy
+  has_many :projects
   has_many :meetings, through: :projects
   has_many :notes, through: :projects
   has_many :subcontractors, through: :projects

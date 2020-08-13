@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_17_140709) do
+ActiveRecord::Schema.define(version: 2020_08_01_105805) do
 
   create_table "drawings", force: :cascade do |t|
     t.string "title"
@@ -23,8 +23,8 @@ ActiveRecord::Schema.define(version: 2020_07_17_140709) do
   create_table "meetings", force: :cascade do |t|
     t.string "title"
     t.date "date"
-    t.time "start_time"
-    t.time "end_time"
+    t.string "start_time"
+    t.string "end_time"
     t.string "location"
     t.string "description"
     t.integer "project_id"
