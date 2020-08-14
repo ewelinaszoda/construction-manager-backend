@@ -29,3 +29,4 @@ production:
   <<: *default
   # database: db/production.sqlite3
   database: my_database_production
+
