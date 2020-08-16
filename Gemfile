@@ -50,7 +50,7 @@ group :development, :test do
   gem 'sqlite3'    #gem to use in development-test environment
 end
 
-# for deploy in Heroku
+# # for deploy in Heroku
 group :production do 
  gem 'pg'         #gem to use in production environment
 end
