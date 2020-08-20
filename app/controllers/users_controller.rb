@@ -21,6 +21,7 @@ class UsersController < ApplicationController
     if user && user.authenticate(params[:password])
       render json: { user: user, token: encode_token({ id: user.id }) }
     else
+      # render json: { message: 'Invalid email or password' }, status: 400
       render json: { message: 'Invalid email or password' }
     end 
   end 
